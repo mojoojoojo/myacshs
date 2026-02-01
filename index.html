@@ -7,14 +7,26 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg-1: #f8fafc; --bg-2: #f1f5f9;
-    --primary: #2563eb; --primary-hover: #1d4ed8;
-    --accent: #6a11cb;
-    --muted: #64748b; --text: #0f172a;
+    /* Logo Colors: Red/Orange Gradient, Green Laurels, Gold Inner */
+    --bg-1: #fff7ed; /* Light orange tint bg */
+    --bg-2: #fffbeb; /* Light yellow tint bg */
+    
+    --primary: #ea580c; /* Deep Orange/Red from outer ring */
+    --primary-hover: #c2410c;
+    --secondary: #16a34a; /* Green from laurels */
+    --gold: #facc15; /* Gold from inner shield */
+    
+    --muted: #64748b; 
+    --text: #1e293b;
     --card: #ffffff;
-    --danger: #ef4444; --success: #16a34a; --warning: #f59e0b;
+    
+    --danger: #ef4444; 
+    --success: #16a34a; 
+    --warning: #f59e0b;
+    
     --radius: 12px;
-    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow: 0 4px 6px -1px rgba(234, 88, 12, 0.1), 0 2px 4px -1px rgba(234, 88, 12, 0.06);
+    --header-grad: linear-gradient(135deg, #dc2626 0%, #ea580c 50%, #ca8a04 100%);
   }
 
   * { box-sizing: border-box; outline: none; -webkit-tap-highlight-color: transparent; }
@@ -28,26 +40,68 @@
 
   .app { width: 100%; max-width: 1200px; display: flex; gap: 20px; flex-direction: column; }
   
-  header.app-header { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  /* Colorful Header */
+  header.app-header { 
+    display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; 
+    background: var(--header-grad);
+    padding: 15px 20px;
+    border-radius: var(--radius);
+    color: white;
+    box-shadow: 0 10px 15px -3px rgba(234, 88, 12, 0.3);
+  }
   .brand { display: flex; gap: 12px; align-items: center; }
-  .logo { width: 42px; height: 42px; border-radius: 10px; background: linear-gradient(135deg, var(--accent), var(--primary)); color: white; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 16px; box-shadow: 0 4px 12px rgba(37,99,235,0.2); }
-  .title { font-weight: 700; font-size: 18px; color: var(--text); } 
+  .logo { 
+    width: 48px; height: 48px; border-radius: 50%; 
+    background: white; color: var(--primary); 
+    display: flex; align-items: center; justify-content: center; 
+    font-weight: 800; font-size: 18px; 
+    border: 3px solid var(--gold);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  }
+  .title { font-weight: 800; font-size: 20px; text-shadow: 0 1px 2px rgba(0,0,0,0.1); } 
+  .subtitle-head { color: rgba(255,255,255,0.9); font-size: 13px; font-weight: 500; }
   .subtitle { color: var(--muted); font-size: 13px; }
 
   .card { 
     background: var(--card); border-radius: var(--radius); padding: 20px; 
-    box-shadow: var(--shadow); border: 1px solid #e2e8f0; width: 100%;
+    box-shadow: var(--shadow); border: 1px solid #fed7aa; width: 100%;
   }
   
   .center-view { display: flex; align-items: center; justify-content: center; min-height: 70vh; flex-direction: column; width: 100%; }
 
   /* Forms */
-  label { display: block; font-size: 13px; font-weight: 500; color: var(--muted); margin-bottom: 6px; }
+  label { display: block; font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
   input, select, textarea { 
-    width: 100%; padding: 11px 12px; border-radius: 8px; border: 1px solid #cbd5e1; 
+    width: 100%; padding: 11px 12px; border-radius: 8px; border: 2px solid #fed7aa; 
     font-size: 14px; background: #fff; transition: border-color 0.2s;
   }
-  input:focus { border-color: var(--primary); }
+  input:focus, select:focus { border-color: var(--primary); }
+
+  /* Radio/Checkbox Group Styling */
+  .radio-group { display: flex; gap: 10px; flex-wrap: wrap; }
+  
+  /* UPDATED: Changed to label for better clicking */
+  label.radio-option {
+    flex: 1; position: relative; display: block; margin: 0; cursor: pointer;
+  }
+  .radio-option input { position: absolute; opacity: 0; cursor: pointer; height: 0; width: 0; }
+  .radio-option span {
+    display: flex; align-items: center; justify-content: center;
+    padding: 10px; border: 2px solid #fed7aa; border-radius: 8px;
+    font-weight: 600; font-size: 13px; color: var(--muted);
+    transition: all 0.2s; text-align: center; background: white;
+  }
+  /* Checked States */
+  .radio-option input:checked ~ span {
+    color: white; 
+    box-shadow: 0 4px 6px -1px rgba(234, 88, 12, 0.4);
+    transform: translateY(-2px);
+  }
+  /* Specific colors for status */
+  .radio-option input[value="Present"]:checked ~ span { background: var(--secondary); border-color: var(--secondary); }
+  .radio-option input[value="Absent"]:checked ~ span { background: var(--danger); border-color: var(--danger); }
+  .radio-option input[value="Tardy"]:checked ~ span { background: var(--warning); border-color: var(--warning); }
+
 
   /* Show Password Feature */
   .pass-wrapper { position: relative; width: 100%; }
@@ -59,12 +113,12 @@
   }
 
   button { 
-    padding: 11px 16px; border-radius: 8px; border: none; cursor: pointer; 
-    font-weight: 600; font-size: 14px; transition: all 0.2s ease; display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+    padding: 12px 18px; border-radius: 8px; border: none; cursor: pointer; 
+    font-weight: 700; font-size: 14px; transition: all 0.2s ease; display: inline-flex; align-items: center; justify-content: center; gap: 6px;
   }
-  button.primary { background: var(--primary); color: white; }
-  button.primary:hover { background: var(--primary-hover); }
-  button.ghost { background: transparent; border: 1px solid #cbd5e1; color: var(--muted); }
+  button.primary { background: var(--primary); color: white; box-shadow: 0 4px 10px rgba(234, 88, 12, 0.3); }
+  button.primary:hover { background: var(--primary-hover); transform: translateY(-1px); }
+  button.ghost { background: transparent; border: 2px solid #fed7aa; color: var(--primary); }
   button.danger { background: #fee2e2; color: var(--danger); }
   button.danger:hover { background: var(--danger); color: white; }
 
@@ -73,48 +127,49 @@
   @media (max-width: 900px){ .grid{ grid-template-columns: 1fr; } }
 
   /* Tabs */
-  .tabs { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 12px; border-bottom: 1px solid #e2e8f0; margin-bottom: 16px; -webkit-overflow-scrolling: touch; } 
-  .tabs button { white-space: nowrap; background: transparent; color: var(--muted); border: none; padding: 8px 14px; font-weight: 500; border-radius: 6px; } 
-  .tabs button.active { background: var(--primary); color: white; }
+  .tabs { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 12px; border-bottom: 2px solid #fed7aa; margin-bottom: 16px; -webkit-overflow-scrolling: touch; } 
+  .tabs button { white-space: nowrap; background: transparent; color: var(--muted); border: none; padding: 8px 14px; font-weight: 600; border-radius: 6px; box-shadow: none;} 
+  .tabs button.active { background: var(--secondary); color: white; box-shadow: 0 4px 6px rgba(22, 163, 74, 0.3); }
 
-  /* Tables & Responsive Scrolling */
+  /* Tables */
   .table-container { 
     overflow-x: auto; -webkit-overflow-scrolling: touch; 
-    border-radius: 8px; border: 1px solid #e2e8f0; 
+    border-radius: 8px; border: 1px solid #fed7aa; 
     max-width: 100%; background: white;
   }
   table { width: 100%; border-collapse: collapse; font-size: 14px; min-width: 600px; } 
-  th, td { padding: 12px 16px; border-bottom: 1px solid #e2e8f0; text-align: left; }
-  th { background: #f8fafc; color: var(--muted); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
-  
-  /* Mobile Table View (Stacks rows into cards) */
+  th, td { padding: 12px 16px; border-bottom: 1px solid #fed7aa; text-align: left; }
+  th { background: #fff7ed; color: var(--primary); font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; }
+  tr:hover { background: #fffbeb; }
+
+  /* Mobile Table View */
   @media (max-width: 600px){
     table, thead, tbody, th, td, tr { display: block; width: 100%; }
     thead { display: none; }
     .table-container { border: none; background: transparent; }
-    tr { background: var(--card); margin-bottom: 15px; border: 1px solid #e2e8f0; border-radius: 8px; padding: 12px; box-shadow: var(--shadow); }
-    td { padding: 10px 0; border: none; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed #e2e8f0; }
+    tr { background: var(--card); margin-bottom: 15px; border: 1px solid #fed7aa; border-radius: 8px; padding: 12px; box-shadow: var(--shadow); }
+    td { padding: 10px 0; border: none; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed #fed7aa; }
     td:last-child { border-bottom: none; }
     td::before { content: attr(data-label); font-weight: 600; color: var(--muted); font-size: 12px; }
   }
 
   /* Utility */
-  .pill { background: #f1f5f9; padding: 4px 10px; border-radius: 99px; font-size: 12px; font-weight: 600; }
-  .hr { height: 1px; background: #e2e8f0; margin: 16px 0; width: 100%; }
+  .pill { background: #fff7ed; color: var(--primary); padding: 4px 10px; border-radius: 99px; font-size: 12px; font-weight: 600; border: 1px solid #fed7aa; }
+  .hr { height: 1px; background: #fed7aa; margin: 16px 0; width: 100%; }
   .row { display: flex; gap: 12px; flex-wrap: wrap; } 
   .col { flex: 1; min-width: 180px; }
 
   /* Avatars */
   .avatar-container { text-align: center; }
-  .avatar { width: 100px; height: 100px; object-fit: cover; border-radius: 8px; border: 3px solid white; box-shadow: var(--shadow); background: #e2e8f0; }
-  .avatar-placeholder { width: 100px; height: 100px; background: #e0e7ff; color: var(--primary); display: flex; align-items: center; justify-content: center; font-size: 32px; font-weight: 800; border-radius: 8px; margin: 0 auto; border: 3px solid white; box-shadow: var(--shadow); }
-  .thumb { width: 32px; height: 32px; border-radius: 4px; object-fit: cover; vertical-align: middle; margin-right: 8px; }
+  .avatar { width: 100px; height: 100px; object-fit: cover; border-radius: 50%; border: 4px solid var(--gold); box-shadow: var(--shadow); background: #fff; }
+  .avatar-placeholder { width: 100px; height: 100px; background: #fff7ed; color: var(--primary); display: flex; align-items: center; justify-content: center; font-size: 32px; font-weight: 800; border-radius: 50%; margin: 0 auto; border: 4px solid var(--gold); box-shadow: var(--shadow); }
+  .thumb { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; vertical-align: middle; margin-right: 10px; border: 2px solid var(--gold); }
 
   /* Animations */
   .fade-in { animation: fadeIn 0.4s ease forwards; opacity: 0; }
   @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-  .link-btn { background: none; border: none; color: var(--primary); text-decoration: underline; padding: 0; cursor: pointer; font-size: 13px; font-weight: 500; }
+  .link-btn { background: none; border: none; color: var(--primary); text-decoration: underline; padding: 0; cursor: pointer; font-size: 13px; font-weight: 600; }
 </style>
 </head>
 <body>
@@ -122,15 +177,17 @@
 <div class="app">
   <header class="app-header">
     <div class="brand">
-      <div class="logo">AC</div>
-      <div><div class="title">myACSHS</div><div class="subtitle">Secure Portal</div></div>
+      <div class="logo">
+  <img src="acshslogo.jpg" style="width:100%; height:100%; border-radius:50%; object-fit:cover;">
+</div>
+      <div><div class="title">Antipolo City SHS</div><div class="subtitle-head">Official Portal</div></div>
     </div>
   </header>
 
   <main id="loginView" class="center-view fade-in">
-    <div class="card" style="max-width: 400px;">
-      <h2 style="margin: 0 0 10px 0; text-align: center;">Welcome</h2>
-      <p style="text-align: center; color: var(--muted); font-size: 14px; margin-bottom: 24px;">Please sign in to your account</p>
+    <div class="card" style="max-width: 400px; border-top: 5px solid var(--primary);">
+      <h2 style="margin: 0 0 10px 0; text-align: center; color: var(--primary);">Welcome Back</h2>
+      <p style="text-align: center; color: var(--muted); font-size: 14px; margin-bottom: 24px;">Sign in to access your grades and schedule</p>
 
       <label>Role</label>
       <select id="loginRole" style="margin-bottom: 16px;">
@@ -152,15 +209,16 @@
       <div style="margin-top: 16px; text-align: center;">
         <button class="link-btn" onclick="showForgotPass()">Forgot Password?</button>
       </div>
-      <div style="margin-top: 20px; font-size: 11px; color: var(--muted); text-align: center; border-top:1px dashed #cbd5e1; padding-top:10px;">
-        Demo Student ID: <b>1202</b> <br> Pass: <b>password</b>
+      <div style="margin-top: 20px; font-size: 11px; color: var(--muted); text-align: center; border-top:1px dashed #fed7aa; padding-top:10px;">
+        Demo Student ID: <b>1202</b> <br> Pass: <b>password</b> <br>
+        Admin User: <b>admin</b> | Pass: <b>admin123</b>
       </div>
     </div>
   </main>
 
   <main id="forgotView" class="center-view fade-in" style="display:none">
     <div class="card" style="max-width: 400px;">
-      <h2 style="margin: 0 0 8px 0; text-align: center;">Reset Password</h2>
+      <h2 style="margin: 0 0 8px 0; text-align: center; color: var(--primary);">Reset Password</h2>
       <p style="text-align: center; color: var(--muted); font-size: 14px; margin-bottom: 24px;">Verify your identity to set a new password</p>
 
       <label>Student ID</label>
@@ -186,8 +244,8 @@
         <div class="card">
           <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap: wrap; gap: 10px; margin-bottom: 20px;">
             <div>
-              <div id="userTitle" style="font-weight:700; font-size:22px;">...</div>
-              <div id="userMeta" class="subtitle">...</div>
+              <div id="userTitle" style="font-weight:800; font-size:24px; color: var(--primary);">...</div>
+              <div id="userMeta" class="subtitle" style="font-weight: 500;">...</div>
             </div>
             <button class="danger ghost" onclick="logout()" style="border: 1px solid #fee2e2;">Logout</button>
           </div>
@@ -198,9 +256,9 @@
       </div>
 
       <aside>
-        <div class="card">
-          <div class="subtitle" style="text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px;">Dashboard Stats</div>
-          <div style="font-weight:600; font-size: 16px; margin: 8px 0;" id="todayDate"></div>
+        <div class="card" style="background: var(--bg-1);">
+          <div class="subtitle" style="text-transform: uppercase; font-weight: 800; letter-spacing: 0.5px; color: var(--primary);">Dashboard Stats</div>
+          <div style="font-weight:700; font-size: 18px; margin: 8px 0; color: var(--text);" id="todayDate"></div>
           <div class="hr"></div>
           <div id="quickPills" style="display:flex; gap:8px; flex-wrap:wrap"></div>
           <div style="margin-top:16px; font-size: 13px; line-height: 1.5;" id="rightShort"></div>
@@ -212,8 +270,10 @@
 
 <script>
 /* --- DB Keys & Defaults --- */
-const KEYS = { USERS:'ac_user_db', ATT:'ac_att_db', GRADES:'ac_grade_db', SCHED:'ac_sched_db', SESSION: 'ac_active_session' };
+const KEYS = { USERS:'ac_user_db_v3', ATT:'ac_att_db_v3', GRADES:'ac_grade_db_v3', SCHED:'ac_sched_db_v3', SESSION: 'ac_active_session_v3' };
 const ADMIN = { username:'admin', password:'admin123' };
+const SECTIONS = ['ICT-1201', 'ICT-1202', 'ICT-1203'];
+const SUBJECTS = ['M.I.L', 'JAVA', 'P.E', 'TRIPLE III', 'WORK IMMERSION'];
 
 /* --- Storage Helpers --- */
 function read(key){ try { return JSON.parse(localStorage.getItem(key)) || []; } catch(e){ return []; } }
@@ -223,39 +283,36 @@ function getMMDD(date){ if(!date) return ''; const p=date.split('-'); return p.l
 /* --- App State --- */
 let state = { role: null, user: null };
 
-/* --- Initialization with Image Data --- */
+/* --- Initialization --- */
 function initData(){
-  // 1. Initialize Student User (ICT 1202)
+  // 1. Initialize Student User
   let users = read(KEYS.USERS);
   if(!users.find(u => u.id === '1202')){
     users.push({ 
       id: '1202', 
       password: 'password', 
       slipNumber: 'ICT-SLIP', 
-      firstName: 'Student', 
-      lastName: 'ICT 1202', 
-      track: 'ICT 1202 (Mrs. Sofia)', 
+      firstName: 'Juan', 
+      lastName: 'Dela Cruz', 
+      section: 'ICT-1202', 
       birth: '2005-01-01', 
       avatar: null 
     });
     write(KEYS.USERS, users);
   }
 
-  // 2. Initialize Schedule from Image
-  // Schedule for ICT 1202 (Mrs. Jenelyn V. Sofia)
+  // 2. Initialize Schedule
   let sched = read(KEYS.SCHED);
   if(sched.length === 0){
     const newSched = [
       { subject: "Homeroom Guidance", time: "Mon 6:15-7:15", room: "Adviser" },
-      { subject: "Media and Information Literacy", time: "Tue-Fri 6:15-7:15", room: "Mrs. Sofia" },
+      { subject: "M.I.L", time: "Tue-Fri 6:15-7:15", room: "Mrs. Sofia" },
       { subject: "JAVA", time: "Mon-Fri 7:15-8:15", room: "Sir Espiritu" },
       { subject: "--- BREAK ---", time: "Mon-Fri 8:15-8:35", room: "---" },
-      { subject: "Physical Education & Health", time: "Mon 8:35-9:35", room: "Sir Jordan" },
+      { subject: "P.E", time: "Mon 8:35-9:35", room: "Sir Jordan" },
       { subject: "JAVA", time: "Tue, Thu, Fri 8:35-9:35", room: "Sir Espiritu" },
-      { subject: "Inquiries, Investigations, Immersion", time: "Wed 8:35-9:35", room: "Sir Inocian" },
-      { subject: "Inquiries, Investigations, Immersion", time: "Mon, Tue, Thu 9:35-10:35", room: "Sir Inocian" },
-      { subject: "Work Immersion", time: "Wed, Fri 9:35-10:35", room: "Sir Espiritu" },
-      { subject: "Work Immersion", time: "Mon, Tue 10:35-11:35", room: "Sir Espiritu" }
+      { subject: "TRIPLE III", time: "Wed 8:35-9:35", room: "Sir Inocian" },
+      { subject: "WORK IMMERSION", time: "Mon, Tue 10:35-11:35", room: "Sir Espiritu" }
     ];
     write(KEYS.SCHED, newSched);
   }
@@ -338,15 +395,15 @@ function openDashboard(){
   document.getElementById('todayDate').innerText = new Date().toDateString();
 
   if(state.role === 'admin'){
-    document.getElementById('userTitle').innerText = 'System Administrator';
-    document.getElementById('userMeta').innerText = 'Portal Access Level 1';
+    document.getElementById('userTitle').innerText = 'Administrator';
+    document.getElementById('userMeta').innerText = 'System Management';
     buildAdminTabs();
   } else {
     // Refresh student data from DB
     const fresh = read(KEYS.USERS).find(u => u.id === state.user.id);
     state.user = fresh || state.user;
     document.getElementById('userTitle').innerText = `${state.user.firstName} ${state.user.lastName}`;
-    document.getElementById('userMeta').innerText = `ID: ${state.user.id} | ${state.user.track}`;
+    document.getElementById('userMeta').innerText = `ID: ${state.user.id} | ${state.user.section}`;
     buildStudentTabs();
   }
   updateSidebar();
@@ -359,12 +416,16 @@ function updateSidebar(){
   
   if(state.role === 'admin'){
     const count = read(KEYS.USERS).length;
-    pills.innerHTML = `<div class="pill">${count} Enrolled</div>`;
-    short.innerText = "Welcome back. You can manage student data and schedules from here.";
+    pills.innerHTML = `<div class="pill">${count} Students Enrolled</div>`;
+    short.innerText = "Manage students, grades, and attendance from the tabs above.";
   } else {
     const absences = read(KEYS.ATT).filter(a => a.userId === state.user.id && a.status === 'Absent').length;
-    pills.innerHTML = `<div class="pill" style="color:white; background:${absences>0?'var(--danger)':'var(--success)'}">${absences} Absences</div>`;
-    short.innerText = "Please keep your Slip Number private. It is used for account recovery.";
+    const lates = read(KEYS.ATT).filter(a => a.userId === state.user.id && a.status === 'Tardy').length;
+    pills.innerHTML = `
+      <div class="pill" style="color:white; background:${absences>0?'var(--danger)':'var(--success)'}">${absences} Absences</div>
+      <div class="pill" style="color:white; background:${lates>0?'var(--warning)':'var(--muted)'}">${lates} Lates</div>
+    `;
+    short.innerText = "Keep your Slip Number private. It is used for account recovery.";
   }
 }
 
@@ -417,7 +478,7 @@ function renderManageStudents(){
         </div>
       </td>
       <td data-label="Name">${u.firstName} ${u.lastName}</td>
-      <td data-label="Slip #">${u.slipNumber}</td>
+      <td data-label="Section"><span class="pill">${u.section || 'N/A'}</span></td>
       <td data-label="Actions">
         <button class="ghost" onclick="uploadPhoto(${i})" style="padding:4px 8px; font-size:11px">Photo</button>
         <button class="danger" onclick="delStudent(${i})" style="padding:4px 8px; font-size:11px">Del</button>
@@ -426,7 +487,7 @@ function renderManageStudents(){
 
   mainArea.innerHTML = `
     <div class="fade-in">
-      <h3>Student Management</h3>
+      <h3 style="color:var(--primary)">Student Management</h3>
       <div class="card" style="background:var(--bg-2); border:none; margin-bottom:20px;">
         <div class="row">
           <div class="col"><label>ID Number</label><input id="ni" placeholder="12-0001"></div>
@@ -437,27 +498,33 @@ function renderManageStudents(){
           <div class="col"><label>Last Name</label><input id="nl"></div>
         </div>
         <div class="row" style="margin-top:10px">
-          <div class="col"><label>Track</label><input id="nt" placeholder="STEM / ICT"></div>
+          <div class="col">
+            <label>Section</label>
+            <select id="nSec">
+              <option value="" disabled selected>Select Section</option>
+              ${SECTIONS.map(s => `<option value="${s}">${s}</option>`).join('')}
+            </select>
+          </div>
           <div class="col"><label>Birth Date</label><input id="nb" type="date"></div>
         </div>
         <button class="primary" onclick="doAddStudent()" style="width:100%; margin-top:15px">Register Student</button>
       </div>
       <div class="table-container">
-        <table><thead><tr><th>ID</th><th>Name</th><th>Slip</th><th>Actions</th></tr></thead><tbody>${rows}</tbody></table>
+        <table><thead><tr><th>ID</th><th>Name</th><th>Section</th><th>Actions</th></tr></thead><tbody>${rows}</tbody></table>
       </div>
     </div>`;
 }
 
 function doAddStudent(){
-  const id=document.getElementById('ni').value, slip=document.getElementById('ns').value, f=document.getElementById('nf').value, l=document.getElementById('nl').value, t=document.getElementById('nt').value, b=document.getElementById('nb').value;
-  if(!id||!slip||!f||!l||!b) return alert('Fill all fields');
+  const id=document.getElementById('ni').value, slip=document.getElementById('ns').value, f=document.getElementById('nf').value, l=document.getElementById('nl').value, sec=document.getElementById('nSec').value, b=document.getElementById('nb').value;
+  if(!id||!slip||!f||!l||!b||!sec) return alert('Fill all fields');
   const db = read(KEYS.USERS);
-  db.push({ id, slipNumber:slip, firstName:f, lastName:l, track:t, birth:b, avatar:null });
+  db.push({ id, slipNumber:slip, firstName:f, lastName:l, section:sec, birth:b, avatar:null });
   write(KEYS.USERS, db);
   renderManageStudents(); updateSidebar();
 }
 
-function delStudent(i){ if(confirm('Delete?')){ const db=read(KEYS.USERS); db.splice(i,1); write(KEYS.USERS,db); renderManageStudents(); updateSidebar(); } }
+function delStudent(i){ if(confirm('Delete student?')){ const db=read(KEYS.USERS); db.splice(i,1); write(KEYS.USERS,db); renderManageStudents(); updateSidebar(); } }
 
 function uploadPhoto(i){
   const el = document.createElement('input'); el.type='file'; el.accept='image/*';
@@ -472,37 +539,83 @@ function uploadPhoto(i){
   el.click();
 }
 
-/* --- Admin Attendance --- */
+/* --- Admin Attendance (FIXED) --- */
 function renderAdminAttendance(){
   const users = read(KEYS.USERS), logs = read(KEYS.ATT);
-  const rows = logs.map((l, i) => `<tr><td data-label="ID">${l.userId}</td><td data-label="Date">${l.date}</td><td data-label="Status">${l.status}</td><td data-label="Action"><button class="danger" onclick="delAtt(${i})" style="padding:4px">X</button></td></tr>`).join('');
+  const rows = logs.slice().reverse().map((l, i) => {
+    const realIndex = logs.length - 1 - i; 
+    return `<tr><td data-label="ID">${l.userId}</td><td data-label="Date">${l.date}</td><td data-label="Status"><span class="pill" style="${getStatusStyle(l.status)}">${l.status}</span></td><td data-label="Action"><button class="danger" onclick="delAtt(${realIndex})" style="padding:4px">X</button></td></tr>`
+  }).join('');
+  
   mainArea.innerHTML = `
     <div class="fade-in">
-      <h3>Attendance Logs</h3>
-      <div class="row" style="margin-bottom:15px">
-        <div class="col"><select id="au">${users.map(u=>`<option value="${u.id}">${u.id} - ${u.lastName}</option>`).join('')}</select></div>
-        <div class="col"><input type="date" id="ad" value="${new Date().toISOString().split('T')[0]}"></div>
-        <div class="col"><select id="as"><option>Present</option><option>Absent</option><option>Tardy</option></select></div>
-        <button class="primary" onclick="doAddAtt()">Add</button>
+      <h3 style="color:var(--primary)">Attendance Log</h3>
+      <div class="card" style="background:var(--bg-2); border:none; margin-bottom:20px;">
+        <div class="row">
+          <div class="col">
+            <label>Student</label>
+            <select id="au">${users.map(u=>`<option value="${u.id}">${u.id} - ${u.lastName}</option>`).join('')}</select>
+          </div>
+          <div class="col"><label>Date</label><input type="date" id="ad" value="${new Date().toISOString().split('T')[0]}"></div>
+        </div>
+        
+        <label style="margin-top:10px">Status</label>
+        <div class="radio-group">
+          <label class="radio-option">
+            <input type="radio" name="attStatus" value="Present" checked>
+            <span>Present</span>
+          </label>
+          <label class="radio-option">
+            <input type="radio" name="attStatus" value="Absent">
+            <span>Absent</span>
+          </label>
+          <label class="radio-option">
+            <input type="radio" name="attStatus" value="Tardy">
+            <span>Tardy</span>
+          </label>
+        </div>
+
+        <button class="primary" onclick="doAddAtt()" style="width:100%; margin-top:15px">Record Attendance</button>
       </div>
       <div class="table-container"><table><thead><tr><th>ID</th><th>Date</th><th>Status</th><th></th></tr></thead><tbody>${rows}</tbody></table></div>
     </div>`;
 }
-function doAddAtt(){ const db=read(KEYS.ATT); db.push({userId:document.getElementById('au').value, date:document.getElementById('ad').value, status:document.getElementById('as').value}); write(KEYS.ATT,db); renderAdminAttendance(); }
+function getStatusStyle(s){
+  if(s==='Absent') return 'background:#fee2e2; color:var(--danger)';
+  if(s==='Tardy') return 'background:#fef3c7; color:var(--warning)';
+  return 'background:#dcfce7; color:var(--success)';
+}
+function doAddAtt(){ 
+  const status = document.querySelector('input[name="attStatus"]:checked').value;
+  const db=read(KEYS.ATT); 
+  db.push({userId:document.getElementById('au').value, date:document.getElementById('ad').value, status: status}); 
+  write(KEYS.ATT,db); renderAdminAttendance(); 
+}
 function delAtt(i){ const db=read(KEYS.ATT); db.splice(i,1); write(KEYS.ATT,db); renderAdminAttendance(); }
 
 /* --- Admin Grades --- */
 function renderAdminGrades(){
   const users = read(KEYS.USERS), grades = read(KEYS.GRADES);
-  const rows = grades.map((g, i) => `<tr><td data-label="ID">${g.userId}</td><td data-label="Subject">${g.subject}</td><td data-label="Grade"><strong>${g.grade}</strong></td><td data-label="Action"><button class="danger" onclick="delGrd(${i})" style="padding:4px">X</button></td></tr>`).join('');
+  const rows = grades.map((g, i) => `<tr><td data-label="ID">${g.userId}</td><td data-label="Subject">${g.subject}</td><td data-label="Grade"><strong style="color:var(--primary); font-size:16px">${g.grade}</strong></td><td data-label="Action"><button class="danger" onclick="delGrd(${i})" style="padding:4px">X</button></td></tr>`).join('');
+  
   mainArea.innerHTML = `
     <div class="fade-in">
-      <h3>Academic Records</h3>
-      <div class="row" style="margin-bottom:15px">
-        <div class="col"><select id="gu">${users.map(u=>`<option value="${u.id}">${u.id}</option>`).join('')}</select></div>
-        <div class="col"><input id="gs" placeholder="Subject"></div>
-        <div class="col"><input id="gv" type="number" placeholder="Grade"></div>
-        <button class="primary" onclick="doAddGrd()">Add</button>
+      <h3 style="color:var(--primary)">Grading Sheet</h3>
+      <div class="card" style="background:var(--bg-2); border:none; margin-bottom:20px;">
+        <div class="row">
+          <div class="col">
+            <label>Student</label>
+            <select id="gu">${users.map(u=>`<option value="${u.id}">${u.lastName}, ${u.firstName} (${u.section})</option>`).join('')}</select>
+          </div>
+          <div class="col">
+            <label>Subject</label>
+            <select id="gs">
+              ${SUBJECTS.map(s => `<option value="${s}">${s}</option>`).join('')}
+            </select>
+          </div>
+          <div class="col"><label>Grade</label><input id="gv" type="number" placeholder="e.g. 95"></div>
+        </div>
+        <button class="primary" onclick="doAddGrd()" style="width:100%; margin-top:15px">Submit Grade</button>
       </div>
       <div class="table-container"><table><thead><tr><th>ID</th><th>Subject</th><th>Grade</th><th></th></tr></thead><tbody>${rows}</tbody></table></div>
     </div>`;
@@ -516,12 +629,14 @@ function renderAdminSchedule(){
   const rows = sched.map((s, i) => `<tr><td data-label="Subj">${s.subject}</td><td data-label="Time">${s.time}</td><td data-label="Room">${s.room}</td><td data-label="Action"><button class="danger" onclick="delSch(${i})" style="padding:4px">X</button></td></tr>`).join('');
   mainArea.innerHTML = `
     <div class="fade-in">
-      <h3>Class Schedule</h3>
-      <div class="row" style="margin-bottom:15px">
-        <div class="col"><input id="ss" placeholder="Subject"></div>
-        <div class="col"><input id="st" placeholder="Time (e.g. 8-9AM)"></div>
-        <div class="col"><input id="sr" placeholder="Room"></div>
-        <button class="primary" onclick="doAddSch()">Add</button>
+      <h3 style="color:var(--primary)">Class Schedule</h3>
+      <div class="card" style="background:var(--bg-2); border:none; margin-bottom:20px;">
+        <div class="row">
+          <div class="col"><label>Subject</label><input id="ss" placeholder="Subject Name"></div>
+          <div class="col"><label>Time</label><input id="st" placeholder="e.g. Mon 8-9AM"></div>
+          <div class="col"><label>Teacher/Room</label><input id="sr" placeholder="Room"></div>
+        </div>
+        <button class="primary" onclick="doAddSch()" style="width:100%; margin-top:15px">Add to Schedule</button>
       </div>
       <div class="table-container"><table><thead><tr><th>Subject</th><th>Time</th><th>Room</th><th></th></tr></thead><tbody>${rows}</tbody></table></div>
     </div>`;
@@ -537,35 +652,35 @@ function renderStudentProfile(){
     <div class="fade-in">
       <div class="avatar-container">
         ${u.avatar ? `<img src="${u.avatar}" class="avatar">` : `<div class="avatar-placeholder">${u.firstName[0]}</div>`}
-        <h2 style="margin:10px 0 2px 0">${u.firstName} ${u.lastName}</h2>
-        <div class="subtitle">${u.id} | ${u.track}</div>
+        <h2 style="margin:10px 0 2px 0; color: var(--primary);">${u.firstName} ${u.lastName}</h2>
+        <div class="subtitle">${u.id} | ${u.section}</div>
       </div>
       <div class="hr"></div>
       <div class="row">
         <div class="col"><label>Birthday</label><div>${u.birth}</div></div>
-        <div class="col"><label>Status</label><div class="text-success" style="font-weight:700">ENROLLED</div></div>
+        <div class="col"><label>Status</label><div style="color:var(--secondary); font-weight:700">ENROLLED</div></div>
       </div>
     </div>`;
 }
 
 function renderStudentSchedule(){
   const rows = read(KEYS.SCHED).map(s => `<tr><td data-label="Subject"><b>${s.subject}</b></td><td data-label="Time/Day">${s.time}</td><td data-label="Teacher">${s.room}</td></tr>`).join('');
-  mainArea.innerHTML = `<h3>My Schedule</h3><div class="table-container"><table><thead><tr><th>Subject</th><th>Time / Day</th><th>Teacher</th></tr></thead><tbody>${rows||'<tr><td colspan="3">No schedule posted.</td></tr>'}</tbody></table></div>`;
+  mainArea.innerHTML = `<h3 style="color:var(--primary)">My Schedule</h3><div class="table-container"><table><thead><tr><th>Subject</th><th>Time / Day</th><th>Teacher</th></tr></thead><tbody>${rows||'<tr><td colspan="3">No schedule posted.</td></tr>'}</tbody></table></div>`;
 }
 
 function renderStudentAttendance(){
-  const rows = read(KEYS.ATT).filter(a=>a.userId===state.user.id).map(a => `<tr><td data-label="Date">${a.date}</td><td data-label="Status"><b>${a.status}</b></td></tr>`).join('');
-  mainArea.innerHTML = `<h3>My Attendance</h3><div class="table-container"><table><thead><tr><th>Date</th><th>Status</th></tr></thead><tbody>${rows||'<tr><td colspan="2">No records found.</td></tr>'}</tbody></table></div>`;
+  const rows = read(KEYS.ATT).filter(a=>a.userId===state.user.id).map(a => `<tr><td data-label="Date">${a.date}</td><td data-label="Status"><span class="pill" style="${getStatusStyle(a.status)}">${a.status}</span></td></tr>`).join('');
+  mainArea.innerHTML = `<h3 style="color:var(--primary)">My Attendance</h3><div class="table-container"><table><thead><tr><th>Date</th><th>Status</th></tr></thead><tbody>${rows||'<tr><td colspan="2">No records found.</td></tr>'}</tbody></table></div>`;
 }
 
 function renderStudentGrades(){
-  const rows = read(KEYS.GRADES).filter(g=>g.userId===state.user.id).map(g => `<tr><td data-label="Subject"><b>${g.subject}</b></td><td data-label="Grade" style="font-size:16px"><b>${g.grade}</b></td></tr>`).join('');
-  mainArea.innerHTML = `<h3>Report Card</h3><div class="table-container"><table><thead><tr><th>Subject</th><th>Grade</th></tr></thead><tbody>${rows||'<tr><td colspan="2">Grades not yet released.</td></tr>'}</tbody></table></div>`;
+  const rows = read(KEYS.GRADES).filter(g=>g.userId===state.user.id).map(g => `<tr><td data-label="Subject"><b>${g.subject}</b></td><td data-label="Grade" style="font-size:16px; color:var(--primary)"><b>${g.grade}</b></td></tr>`).join('');
+  mainArea.innerHTML = `<h3 style="color:var(--primary)">Report Card</h3><div class="table-container"><table><thead><tr><th>Subject</th><th>Grade</th></tr></thead><tbody>${rows||'<tr><td colspan="2">Grades not yet released.</td></tr>'}</tbody></table></div>`;
 }
 
 /* --- Init --- */
 window.onload = () => {
-  initData(); // Inject Schedule from Image
+  initData(); 
   const saved = localStorage.getItem(KEYS.SESSION);
   if(saved){
     state = JSON.parse(saved);
